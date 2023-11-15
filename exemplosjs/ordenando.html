@@ -1,0 +1,93 @@
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Receitas e Ordenação</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body class="bg-warning">
+  <div class="container-fluid">
+    <h1>Catálogo de Receitas</h1>
+    <div id="pnlCatalogo" class="d-flex flex-wrap"></div>
+  </div>
+
+  
+  <hr>
+  <div class="container">
+    <h2>Ordenando - Conjunto 1</h2>
+    <label for="valor1">Valor:</label>
+    <input type="number" id="valor1">
+    <button onclick="add('valores1')">Adicionar</button>
+
+    <select id="algoritmo1">
+      <option value="bubble_sort" selected>Bubble Sort</option>
+      <option value="selection_sort">Selection Sort</option>
+      <option value="quick_sort">Quick Sort</option>
+    </select>
+
+    <button onclick="ordenar('valores1')">Ordenar</button>
+    <button onclick="misturar('valores1')">Misturar</button>
+
+    <ul id="valores1"></ul>
+  </div>
+
+  
+  <hr>
+  <div class="container">
+    <h2>Ordenando - Conjunto 2</h2>
+    <label for="valor2">Valor:</label>
+    <input type="number" id="valor2">
+    <button onclick="add('valores2')">Adicionar</button>
+
+    <select id="algoritmo2">
+      <option value="bubble_sort" selected>Bubble Sort</option>
+      <option value="selection_sort">Selection Sort</option>
+      <option value="quick_sort">Quick Sort</option>
+    </select>
+
+    <button onclick="ordenar('valores2')">Ordenar</button>
+    <button onclick="misturar('valores2')">Misturar</button>
+
+    <ul id="valores2"></ul>
+  </div>
+
+  <script>
+    
+
+    function add(listId) {
+      const valorInput = document.getElementById(`valor${listId[listId.length - 1]}`);
+      const valoresList = document.getElementById(listId);
+      const node = document.createElement('li');
+      const textNode = document.createTextNode(valorInput.value);
+      node.appendChild(textNode);
+      valoresList.appendChild(node);
+    }
+
+    function ordenar(listId) {
+      const valoresList = document.getElementById(listId);
+      const algoritmoSelecionado = document.getElementById(`algoritmo${listId[listId.length - 1]}`).value;
+      const valores = Array.from(valoresList.children).map(item => eval(item.innerHTML));
+
+      if (algoritmoSelecionado === 'bubble_sort') {
+        bubble_sort(valores);
+      } else if (algoritmoSelecionado === 'selection_sort') {
+        selection_sort(valores);
+      } else if (algoritmoSelecionado === 'quick_sort') {
+        quick_sort(valores, 0, valores.length - 1);
+      }
+
+      valoresList.innerHTML = valores.map(valor => `<li>${valor}</li>`).join('');
+    }
+
+    function misturar(listId) {
+      const valoresList = document.getElementById(listId);
+      const valores = Array.from(valoresList.children).map(item => eval(item.innerHTML));
+      shuffle(valores, valores.length);
+      valoresList.innerHTML = valores.map(valor => `<li>${valor}</li>`).join('');
+    }
+  </script>
+</body>
+</html>

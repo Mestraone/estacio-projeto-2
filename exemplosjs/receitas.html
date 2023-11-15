@@ -1,0 +1,69 @@
+<!-- receitas.html -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Receitas</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body class="bg-warning">
+  <div class="container-fluid">
+    <h1>Catálogo de Receitas</h1>
+    <div id="pnlCatalogo" class="d-flex flex-wrap"></div>
+
+    <script>
+      const receitas = [
+        {
+          titulo: 'Bolo de Café',
+          imagem: 'https://media.istockphoto.com/id/153820108/pt/foto/bolo-de-chocolate.jpg?s=2048x2048&w=is&k=20&c=E4BczLZJhTwpp5QSOvxDYMpavMmoFn6oD-QtLn1tysI=', 
+          preparo: '1. Preaqueça o forno a 180°C. 2. Misture os ingredientes secos. 3. Adicione o café e o óleo. 4. Asse por 40 minutos.',
+          ingredientes: ['2 xícaras de farinha de trigo', '1 xícara de açúcar', '1/2 xícara de café forte', '1/2 xícara de óleo', '3 ovos', '1 colher de sopa de fermento'],
+        },
+        {
+          titulo: 'Coxinha de Brigadeiro',
+          imagem: 'https://media.istockphoto.com/id/1418305258/pt/foto/bombom-de-morango-strawberry-bonbon-in-close-up-photo-brazilian-sweet-brazilian-dessert-with.jpg?s=2048x2048&w=is&k=20&c=y0PPQ_yn1n9wjUMrA5uxDDJKEY12039_2Njw4dmzG8g=', 
+          preparo: '1. Em uma panela, misture o leite condensado, o chocolate e a manteiga. 2. Leve ao fogo baixo, mexendo até desgrudar do fundo. 3. Deixe esfriar e modele as coxinhas. 4. Passe no granulado.',
+          ingredientes: ['1 lata de leite condensado', '3 colheres de sopa de chocolate em pó', '1 colher de sopa de manteiga', 'Granulado para decorar'],
+        },
+        {
+          titulo: 'Arroz de Couve-flor',
+          imagem: 'https://media.istockphoto.com/id/1036777904/pt/foto/raw-cauliflower-whole-vegetable.jpg?s=2048x2048&w=is&k=20&c=1e5220-0x0O1IHLW_JmfFJ5baASvEoonLivossyzoc4=', 
+          preparo: '1. Triture a couve-flor até ficar com aspecto de arroz. 2. Refogue alho e cebola no azeite. 3. Adicione a couve-flor e mexa bem. 4. Cozinhe por 5-7 minutos até ficar macio.',
+          ingredientes: ['1 couve-flor', '2 colheres de sopa de azeite', '2 dentes de alho picados', '1 cebola picada'],
+        },
+        // Adicione mais receitas conforme necessário
+      ];
+
+      function getListaIngredientes(ingredientes) {
+        return `<ul>${ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).join('')}</ul>`;
+      }
+
+      function getCard(receita) {
+        return `
+          <div class="card m-3" style="width: 250px;">
+            <img src="${receita.imagem}" class="card-img-top" alt="${receita.titulo}">
+            <div class="card-body">
+              <h5 class="card-title">${receita.titulo}</h5>
+              <div class="card-text">
+                ${getListaIngredientes(receita.ingredientes)}
+                <hr>
+                ${receita.preparo}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      function preencheCatalogo() {
+        const pnlCatalogo = document.getElementById('pnlCatalogo');
+        const catalogoHTML = receitas.map(receita => getCard(receita)).join('');
+        pnlCatalogo.innerHTML = catalogoHTML;
+      }
+
+      window.onload = preencheCatalogo;
+    </script>
+  </div>
+</body>
+</html>
